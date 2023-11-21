@@ -62,3 +62,34 @@ def xor_pair(first_hex: str, second_hex: str) -> str:
     xored = [int(x, 16) ^ int(y, 16) for x, y in zip(first_hex, second_hex)]
 
     return ''.join([f'{x:0x}' for x in xored])
+
+
+def _try_xor_val(tested: str, xor_val: int) -> list[int]:
+    return [(int(x+y, 16) ^ xor_val)
+            for x, y in zip(tested[::2], tested[1::2])]
+
+def _score_xors(output_string: str) -> int:
+    score_table: dict[str, int] = {"e": 11, "m": 3, "a": 8, "h": 3, "r": 7,
+                                   "g": 2, "i": 7, "b": 2, "o": 7, "f": 1,
+                                   "t": 6, "y": 1, "n": 6, "w": 1, "s": 5,
+                                   "k": 1, "l": 5, "v": 1, "c": 4, "u": 3,
+                                   "d": 3, "p": 3}
+
+    score: int = sum([score_table[x.lower()] if x in score_table else 0
+                      for x in output_string])
+    return score
+
+
+def find_xor_cipher_solution(ciphered_hex: str) -> str:
+    '''
+    Based on ciphered_hex which is XORed against single byte
+    Returns best scoring solution
+    '''
+    score_dict: dict[int, str] = {}
+
+    for x in range(256):
+        result: str = ''.join([chr(y) for y in _try_xor_val(ciphered_hex, x)])
+        score: int = _score_xors(result)
+        score_dict[score] = result
+
+    return (score_dict[max(score_dict)], max(score_dict))

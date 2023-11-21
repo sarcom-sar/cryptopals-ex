@@ -29,3 +29,25 @@ def test_xor_pair():
         set1.xor_pair("01d", "9d")
     assert str(exinfo.value) == "Strings are not equal size"
 
+
+def test__try_xor_val():
+    assert set1._try_xor_val("4d", 0x1) == [0x4c]
+    assert set1._try_xor_val("", 0x1) == []
+    assert set1._try_xor_val("32", 0x1) == [0x33]
+    assert set1._try_xor_val("48656C6C6F20576F726C64", 0) == [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
+
+
+def test__score_xors():
+    assert set1._score_xors("eee") == 33
+    assert set1._score_xors("ggg") == 6
+    assert set1._score_xors("aing") == 23
+    assert set1._score_xors("") == 0
+
+
+def test_find_xor_cipher_solution():
+    assert set1.find_xor_cipher_solution("1b37373331363f78151b7f2b783431333d783"
+                                         "97828372d363c78373e783a393b3736") ==\
+           ("Cooking MC's like a pound of bacon", 124)
+
+    assert set1.find_xor_cipher_solution("48656C6C6F20576F726C64") ==\
+           ("Hello World", 50)
