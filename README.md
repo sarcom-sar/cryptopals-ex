@@ -16,7 +16,7 @@ Tests for those challenges will be bound to single file too.
 2. Fixed XOR *done*
 3. Single-byte XOR cipher *done*
 4. Detect single-character XOR *done*
-5. Implement repeating-key XOR
+5. Implement repeating-key XOR *done*
 6. Break repeating-key XOR
 7. AES in ECB mode
 8. Detect AES in ECB mode

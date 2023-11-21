@@ -104,3 +104,19 @@ def find_single_xor_in_huge_list() -> list[tuple[int, str]]:
             interesting_lines.append(find_xor_cipher_solution(line))
 
     return sorted(interesting_lines, key=lambda x: x[1] > 100, reverse=True)[0]
+
+
+def repeating_key_xor(phrase: str, key: str) -> str:
+    hex_phrase = [ord(x) for x in phrase]
+    hex_key = [ord(x) for x in key]
+
+    no_repeats: int = int(len(hex_phrase)/len(hex_key) // 1)
+    pad: int = len(hex_phrase) % len(hex_key)
+
+    padded_key: list[int] = (hex_key*no_repeats) + hex_key[:pad]
+
+    xored = [x ^ y for x, y in zip(hex_phrase, padded_key)]
+
+    return ''.join(['{:02x}'.format(x) for x in xored])
+
+
