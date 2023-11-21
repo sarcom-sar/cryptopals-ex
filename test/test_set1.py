@@ -51,3 +51,8 @@ def test_find_xor_cipher_solution():
 
     assert set1.find_xor_cipher_solution("48656C6C6F20576F726C64") ==\
            ("Hello World", 50)
+
+
+def test_find_single_xor_in_huge_list():
+    assert set1.find_single_xor_in_huge_list() ==\
+        ('Now that the party is jumping\n', 112)

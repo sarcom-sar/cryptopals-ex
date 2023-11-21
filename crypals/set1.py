@@ -80,7 +80,7 @@ def _score_xors(output_string: str) -> int:
     return score
 
 
-def find_xor_cipher_solution(ciphered_hex: str) -> str:
+def find_xor_cipher_solution(ciphered_hex: str) -> tuple[int, str]:
     '''
     Based on ciphered_hex which is XORed against single byte
     Returns best scoring solution
@@ -93,3 +93,14 @@ def find_xor_cipher_solution(ciphered_hex: str) -> str:
         score_dict[score] = result
 
     return (score_dict[max(score_dict)], max(score_dict))
+
+
+def find_single_xor_in_huge_list() -> list[tuple[int, str]]:
+    interesting_lines: list[tuple[int, str]] = []
+    with open("data/4.txt", "r") as f:
+        all_lines: list[str] = f.readlines()
+
+        for line in all_lines:
+            interesting_lines.append(find_xor_cipher_solution(line))
+
+    return sorted(interesting_lines, key=lambda x: x[1] > 100, reverse=True)[0]

@@ -14,8 +14,8 @@ Tests for those challenges will be bound to single file too.
 
 1. Convert hex to base64 *done*
 2. Fixed XOR *done*
-3. Single-byte XOR cipher
-4. Detect single-character XOR
+3. Single-byte XOR cipher *done*
+4. Detect single-character XOR *done*
 5. Implement repeating-key XOR
 6. Break repeating-key XOR
 7. AES in ECB mode
