@@ -13,7 +13,7 @@ Tests for those challenges will be bound to single file too.
 ### Set 1: Basics
 
 1. Convert hex to base64 *done*
-2. Fixed XOR
+2. Fixed XOR *done*
 3. Single-byte XOR cipher
 4. Detect single-character XOR
 5. Implement repeating-key XOR

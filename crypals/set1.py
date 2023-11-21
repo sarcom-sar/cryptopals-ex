@@ -13,7 +13,7 @@ def hex_to_base64(hexdata: str) -> str:
     padding: int = 0
 
     # check if hexdata contains only 1byte hexes
-    assert (len(hexdata) % 2) == 0
+    assert (len(hexdata) % 2) == 0, "Doesn't contain multiple of 1 byte"
 
     dec_vals: list[int] = [int(hexnum, 16) for hexnum in hexdata]
 
@@ -27,13 +27,15 @@ def hex_to_base64(hexdata: str) -> str:
         padding += 1
 
     triplets_24bit: list[int] = [triplets for triplets in
-                               zip(dec_vals[::3],
-                                   dec_vals[1::3],
-                                   dec_vals[2::3])]
+                                 zip(dec_vals[::3],
+                                     dec_vals[1::3],
+                                     dec_vals[2::3])]
 
     values_24bit: list[int] = []
     for triplet in triplets_24bit:
-        values_24bit.append((triplet[0] << 16) + (triplet[1] << 8) + triplet[2])
+        values_24bit.append((triplet[0] << 16) +
+                            (triplet[1] << 8) +
+                            triplet[2])
 
     for one_24bit in values_24bit:
         base64_vals.append(one_24bit >> 18 & 0x3F)
@@ -48,3 +50,15 @@ def hex_to_base64(hexdata: str) -> str:
     base64_data += "="*padding
 
     return base64_data
+
+
+def xor_pair(first_hex: str, second_hex: str) -> str:
+    '''
+    Takes hex pair of equal size.
+    Returns XORed string
+    '''
+    assert len(first_hex) == len(second_hex), "Strings are not equal size"
+
+    xored = [int(x, 16) ^ int(y, 16) for x, y in zip(first_hex, second_hex)]
+
+    return ''.join([f'{x:0x}' for x in xored])
